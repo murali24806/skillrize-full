@@ -62,26 +62,21 @@ body.dark nav{background:rgba(13,13,26,.97)}
 body.dark .logo{color:#fff}
 .logo span{color:var(--accent)}
 
-/* Logo image wrapper — clickable upload */
+/* Logo image wrapper */
 .logo-img-wrap{
   width:42px;height:42px;border-radius:10px;overflow:hidden;
-  flex-shrink:0;cursor:pointer;position:relative;
-  background:linear-gradient(135deg,#7c3aff,#00e5ff);
+  flex-shrink:0;position:relative;
+
   display:flex;align-items:center;justify-content:center;
-  transition:box-shadow .2s;
 }
-.logo-img-wrap:hover{box-shadow:0 0 0 3px rgba(233,69,96,.35)}
-.logo-img-wrap img{width:100%;height:100%;object-fit:cover;display:none}
+/* The actual logo image — shown by default, hidden on error */
+.logo-img-wrap img{
+  width:100%;height:100%;object-fit:cover;
+}
+.logo-img-wrap img.hidden{display:none}
+/* Fallback placeholder letter — hidden by default, shown on error */
 .logo-placeholder{font-weight:800;font-size:1.1rem;color:#fff;pointer-events:none}
-.logo-upload-input{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0}
-.logo-upload-hint{
-  position:absolute;top:calc(100% + 7px);left:50%;transform:translateX(-50%);
-  background:var(--card-bg);border:1px solid var(--border);
-  border-radius:6px;padding:3px 9px;font-size:.67rem;color:var(--muted);
-  white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;z-index:20;
-  box-shadow:var(--shadow);
-}
-.logo-img-wrap:hover .logo-upload-hint{opacity:1}
+.logo-placeholder.hidden{display:none}
 
 /* Desktop nav links */
 .nav-links{display:flex;gap:1.6rem;list-style:none;margin-left:auto}
@@ -159,7 +154,6 @@ body.dark .mobile-menu ul li a{color:#e8e6f0}
 .slide2{background:linear-gradient(110deg,#0a1a0a 0%,#0d3b1a 55%,#0a2a10 100%)}
 .slide3{background:linear-gradient(110deg,#1a0a00 0%,#3b1500 55%,#2a0f00 100%)}
 
-/* orb blobs */
 .slide::before,.slide::after{content:'';position:absolute;border-radius:50%;opacity:.18}
 .slide1::before{width:340px;height:340px;background:#5a4fcf;top:-90px;right:8%}
 .slide1::after{width:210px;height:210px;background:#e94560;bottom:-65px;left:4%}
@@ -168,7 +162,6 @@ body.dark .mobile-menu ul li a{color:#e8e6f0}
 .slide3::before{width:290px;height:290px;background:#f5a623;top:-65px;right:10%}
 .slide3::after{width:230px;height:230px;background:#e94560;bottom:-70px;left:2%}
 
-/* grid overlay */
 .slide-grid{
   position:absolute;inset:0;
   background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
@@ -205,7 +198,6 @@ body.dark .mobile-menu ul li a{color:#e8e6f0}
 
 .slide-visual{flex:0 0 38%;display:flex;align-items:center;justify-content:flex-end;padding-right:1rem}
 
-/* arrows */
 .slide-arrow{
   position:absolute;top:50%;transform:translateY(-50%);z-index:10;
   background:rgba(255,255,255,.14);border:none;border-radius:50%;
@@ -216,7 +208,6 @@ body.dark .mobile-menu ul li a{color:#e8e6f0}
 .slide-arrow.prev{left:1rem}
 .slide-arrow.next{right:1rem}
 
-/* dots */
 .slide-dots{
   position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);
   display:flex;gap:6px;z-index:10;
@@ -224,7 +215,6 @@ body.dark .mobile-menu ul li a{color:#e8e6f0}
 .dot{width:7px;height:7px;border-radius:50%;border:none;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s}
 .dot.active{background:#fff;transform:scale(1.4)}
 
-/* progress bar */
 .slide-prog{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,.08)}
 .slide-prog-fill{height:100%;background:linear-gradient(90deg,#a78bfa,#e94560);width:0%;transition:width linear}
 
@@ -452,7 +442,7 @@ body.dark .feature-card{background:#12122a}
 body.dark .feature-card h3{color:#e8e6f0}
 
 /* ─────────────────────────────────────────────
-   ══ RESPONSIVE — TABLET ══
+   RESPONSIVE — TABLET
 ───────────────────────────────────────────── */
 @media (max-width:1024px){
   .info-grid,.about-grid,.contact-grid{grid-template-columns:1fr;gap:2.5rem}
@@ -463,41 +453,30 @@ body.dark .feature-card h3{color:#e8e6f0}
 }
 
 /* ─────────────────────────────────────────────
-   ══ RESPONSIVE — MOBILE ══  (≤768px)
-   Matching the PW mobile screenshots exactly
+   RESPONSIVE — MOBILE (<=768px)
 ───────────────────────────────────────────── */
 @media (max-width:768px){
   :root{--nav-h:62px}
-
-  /* hide desktop nav links */
   .nav-links{display:none}
   .nav-right{display:none}
   .hamburger{display:flex}
-
-  /* tighter nav */
   .nav-inner{padding:0 1rem}
   .logo{font-size:1.25rem}
   .logo-img-wrap{width:36px;height:36px}
-
-  /* ── Hero: full-width mobile banner like PW image-2 ── */
   .hero{height:auto;min-height:220px}
   .slide-inner{
     flex-direction:column;align-items:flex-start;justify-content:center;
     padding:1.4rem 1rem 1.2rem;
   }
   .slide-text{flex:none;width:100%}
-  .slide-visual{display:none}       /* hide SVG visual on mobile */
+  .slide-visual{display:none}
   .slide-eyebrow{font-size:.7rem;margin-bottom:.4rem}
   .slide-title{font-size:1.45rem;margin-bottom:.5rem}
   .slide-sub{font-size:.82rem;margin-bottom:1rem}
   .slide-btn{padding:9px 22px;font-size:.82rem}
-
-  /* arrows closer to edges on mobile */
   .slide-arrow{width:32px;height:32px;font-size:1rem}
   .slide-arrow.prev{left:.5rem}
   .slide-arrow.next{right:.5rem}
-
-  /* sections */
   section{padding:3rem 1rem}
   .features-grid{grid-template-columns:1fr}
   .courses-grid{grid-template-columns:1fr}
@@ -505,12 +484,11 @@ body.dark .feature-card h3{color:#e8e6f0}
   .info-grid,.about-grid,.contact-grid{grid-template-columns:1fr;gap:2rem}
   .info-visual,.about-image-wrap{min-height:200px}
   .section-sub{margin-bottom:1.75rem}
-
   .footer-links{gap:1rem}
 }
 
 /* ─────────────────────────────────────────────
-   ══ RESPONSIVE — SMALL MOBILE ══ (≤380px)
+   RESPONSIVE — SMALL MOBILE (<=380px)
 ───────────────────────────────────────────── */
 @media (max-width:380px){
   .slide-title{font-size:1.25rem}
@@ -527,11 +505,21 @@ body.dark .feature-card h3{color:#e8e6f0}
 
     <!-- Logo -->
     <a href="#home" class="logo">
-      <div class="logo-img-wrap" title="Click to upload logo">
-        <img id="logoImg" alt="SkillRize Logo"/>
-        <span class="logo-placeholder" id="logoPlaceholder">S</span>
-        <input type="file" class="logo-upload-input" id="logoUpload" accept="image/*"/>
-        <span class="logo-upload-hint">📁 Upload logo</span>
+      <div class="logo-img-wrap">
+        <!--
+          ✅ FIX 1: id changed from "logo.png" → "logoImg"
+          ✅ FIX 2: src="logo.png" loads your image automatically
+                    (logo.png must be in the SAME folder as this HTML file)
+          ✅ FIX 3: onerror hides the broken image and shows the "S" placeholder instead
+        -->
+        <img
+          id="logoImg"
+          src="logo.png"
+          alt="SkillRize Logo"
+          onerror="this.classList.add('hidden'); document.getElementById('logoPlaceholder').classList.remove('hidden');"
+        />
+        <!-- Fallback letter — hidden by default, shown only if logo.png fails to load -->
+        <span class="logo-placeholder hidden" id="logoPlaceholder">S</span>
       </div>
       Skill<span>Rize</span>
     </a>
@@ -547,7 +535,7 @@ body.dark .feature-card h3{color:#e8e6f0}
 
     <!-- Desktop right -->
     <div class="nav-right">
-      <button class="theme-toggle" onclick="toggleTheme()">☀ / ☾</button>
+      <button class="theme-toggle" onclick="toggleTheme()">&#9728; / &#9790;</button>
       <a href="https://skillrize-nine.vercel.app" target="_blank" class="btn-login">Login / Register</a>
     </div>
 
@@ -562,15 +550,15 @@ body.dark .feature-card h3{color:#e8e6f0}
 <!-- ═══════════════════════ MOBILE MENU ═══════════════════════ -->
 <div class="mobile-menu" id="mobileMenu">
   <ul>
-    <li><a href="#home"          onclick="closeMenu()">🏠 Home</a></li>
-    <li><a href="#features"      onclick="closeMenu()">⚡ Features</a></li>
-    <li><a href="#announcements" onclick="closeMenu()">📣 Announcements</a></li>
-    <li><a href="#courses"       onclick="closeMenu()">📚 Courses</a></li>
-    <li><a href="#about"         onclick="closeMenu()">ℹ️ About</a></li>
-    <li><a href="#contact"       onclick="closeMenu()">✉️ Contact</a></li>
+    <li><a href="#home"          onclick="closeMenu()">&#127968; Home</a></li>
+    <li><a href="#features"      onclick="closeMenu()">&#9889; Features</a></li>
+    <li><a href="#announcements" onclick="closeMenu()">&#128227; Announcements</a></li>
+    <li><a href="#courses"       onclick="closeMenu()">&#128218; Courses</a></li>
+    <li><a href="#about"         onclick="closeMenu()">&#8505;&#65039; About</a></li>
+    <li><a href="#contact"       onclick="closeMenu()">&#9993;&#65039; Contact</a></li>
   </ul>
   <div class="mobile-menu-bottom">
-    <button class="theme-toggle" onclick="toggleTheme()">☀ / ☾</button>
+    <button class="theme-toggle" onclick="toggleTheme()">&#9728; / &#9790;</button>
     <a href="https://skillrize-nine.vercel.app" target="_blank" class="btn-login" onclick="closeMenu()">Login / Register</a>
   </div>
 </div>
@@ -583,23 +571,26 @@ body.dark .feature-card h3{color:#e8e6f0}
     <div class="slide-grid"></div>
     <div class="slide-inner">
       <div class="slide-text">
-        <div class="slide-eyebrow">🎓 New Batch Starting June 2026</div>
+        <div class="slide-eyebrow">&#127892; New Batch Starting June 2026</div>
         <h1 class="slide-title">Master <em>Full-Stack</em> Development</h1>
-        <p class="slide-sub">From HTML to React &amp; Firebase — build real projects with expert guidance. Only ₹4,999/-</p>
-        <a href="https://skillrize-nine.vercel.app" target="_blank" class="slide-btn">Enroll Now →</a>
+        <p class="slide-sub">From HTML to React &amp; Firebase — build real projects with expert guidance. Only &#8377;4,999/-</p>
+        <a href="https://skillrize-nine.vercel.app" target="_blank" class="slide-btn">Enroll Now &#8594;</a>
       </div>
       <div class="slide-visual">
         <svg width="240" height="200" viewBox="0 0 250 210" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="50" y="75" width="150" height="55" rx="7" fill="#2a2a5a"/>
           <rect x="56" y="81" width="138" height="43" rx="5" fill="#0d0d2a"/>
           <rect x="56" y="81" width="138" height="13" rx="5" fill="#16163a"/>
-          <circle cx="67" cy="87.5" r="2.5" fill="#e94560" opacity=".8"/><circle cx="76" cy="87.5" r="2.5" fill="#f5a623" opacity=".8"/><circle cx="85" cy="87.5" r="2.5" fill="#4ade80" opacity=".8"/>
+          <circle cx="67" cy="87.5" r="2.5" fill="#e94560" opacity=".8"/>
+          <circle cx="76" cy="87.5" r="2.5" fill="#f5a623" opacity=".8"/>
+          <circle cx="85" cy="87.5" r="2.5" fill="#4ade80" opacity=".8"/>
           <text x="62" y="107" font-size="7" fill="#a78bfa" font-family="monospace">import React from 'react'</text>
           <text x="62" y="116" font-size="7" fill="#4ade80" font-family="monospace">const App = () =&gt; {'{'}</text>
           <text x="68" y="125" font-size="7" fill="#60a5fa" font-family="monospace">  return &lt;Dashboard /&gt;</text>
           <circle cx="125" cy="155" r="19" fill="#f9c784"/>
           <path d="M106 149 Q110 131 125 128 Q140 131 144 149" fill="#2a1a0a"/>
-          <circle cx="119" cy="154" r="2.5" fill="#3a2a1a"/><circle cx="131" cy="154" r="2.5" fill="#3a2a1a"/>
+          <circle cx="119" cy="154" r="2.5" fill="#3a2a1a"/>
+          <circle cx="131" cy="154" r="2.5" fill="#3a2a1a"/>
           <path d="M119 162 Q125 167 131 162" stroke="#3a2a1a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
           <ellipse cx="125" cy="195" rx="27" ry="15" fill="#5a4fcf"/>
         </svg>
@@ -613,10 +604,10 @@ body.dark .feature-card h3{color:#e8e6f0}
     <div class="slide-grid"></div>
     <div class="slide-inner">
       <div class="slide-text">
-        <div class="slide-eyebrow">📊 Data Science Track — Live Now</div>
+        <div class="slide-eyebrow">&#128202; Data Science Track — Live Now</div>
         <h1 class="slide-title">Learn <em>Python &amp; AI</em> From Scratch</h1>
         <p class="slide-sub">Hands-on projects, real datasets, mentored sessions. Become job-ready in 90 days.</p>
-        <a href="https://skillrize-nine.vercel.app" target="_blank" class="slide-btn">Start Learning →</a>
+        <a href="https://skillrize-nine.vercel.app" target="_blank" class="slide-btn">Start Learning &#8594;</a>
       </div>
       <div class="slide-visual">
         <svg width="240" height="200" viewBox="0 0 250 210" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -627,7 +618,8 @@ body.dark .feature-card h3{color:#e8e6f0}
           <rect x="110" y="103" width="6" height="20" rx="2" fill="#22c55e" opacity=".9"/>
           <circle cx="125" cy="155" r="19" fill="#fbbf24"/>
           <path d="M106 149 Q110 132 125 129 Q140 132 144 149" fill="#1a0a2a"/>
-          <circle cx="119" cy="154" r="2.5" fill="#1a0a2a"/><circle cx="131" cy="154" r="2.5" fill="#1a0a2a"/>
+          <circle cx="119" cy="154" r="2.5" fill="#1a0a2a"/>
+          <circle cx="131" cy="154" r="2.5" fill="#1a0a2a"/>
           <path d="M119 162 Q125 167 131 162" stroke="#1a0a2a" stroke-width="1.5" stroke-linecap="round" fill="none"/>
           <ellipse cx="125" cy="195" rx="27" ry="15" fill="#166534"/>
         </svg>
@@ -641,10 +633,10 @@ body.dark .feature-card h3{color:#e8e6f0}
     <div class="slide-grid"></div>
     <div class="slide-inner">
       <div class="slide-text">
-        <div class="slide-eyebrow">🎨 Design + Marketing Bundle</div>
+        <div class="slide-eyebrow">&#127912; Design + Marketing Bundle</div>
         <h1 class="slide-title">UI/UX Design &amp; <em>Digital Marketing</em></h1>
         <p class="slide-sub">Master Figma, SEO, and social media ads. Build a portfolio that gets you hired.</p>
-        <a href="https://skillrize-nine.vercel.app" target="_blank" class="slide-btn">View Courses →</a>
+        <a href="https://skillrize-nine.vercel.app" target="_blank" class="slide-btn">View Courses &#8594;</a>
       </div>
       <div class="slide-visual">
         <svg width="240" height="200" viewBox="0 0 250 210" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -652,7 +644,8 @@ body.dark .feature-card h3{color:#e8e6f0}
           <circle cx="78" cy="107" r="5" fill="#f5a623" opacity=".6"/>
           <circle cx="125" cy="155" r="19" fill="#f9a07a"/>
           <path d="M107 148 Q112 131 125 129 Q138 131 143 148" fill="#2a1a08"/>
-          <circle cx="119" cy="154" r="2.5" fill="#2a1a08"/><circle cx="131" cy="154" r="2.5" fill="#2a1a08"/>
+          <circle cx="119" cy="154" r="2.5" fill="#2a1a08"/>
+          <circle cx="131" cy="154" r="2.5" fill="#2a1a08"/>
           <path d="M119 162 Q125 167 131 162" stroke="#2a1a08" stroke-width="1.5" stroke-linecap="round" fill="none"/>
           <ellipse cx="125" cy="195" rx="27" ry="15" fill="#7c3f00"/>
         </svg>
@@ -679,21 +672,25 @@ body.dark .feature-card h3{color:#e8e6f0}
         <h2 class="section-title">Why students choose SkillRize</h2>
         <p style="color:var(--muted);font-size:1rem;margin-bottom:1.1rem;line-height:1.75;font-weight:400;">SkillRize is an all-in-one learning management system built for institutions and self-learners. Our platform delivers structured video content, interactive assessments, and rich study material — all accessible from any device.</p>
         <p style="color:var(--muted);font-size:1rem;margin-bottom:1.75rem;line-height:1.75;font-weight:400;">Join thousands of students who have accelerated their careers by mastering in-demand skills with expert-curated content.</p>
-        <a href="#contact" class="btn-join">Join Us Today →</a>
+        <a href="#contact" class="btn-join">Join Us Today &#8594;</a>
       </div>
       <div class="info-visual reveal">
         <svg width="280" height="250" viewBox="0 0 310 270" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="76" y="95" width="158" height="92" rx="8" fill="#1e1e3f"/>
           <rect x="82" y="101" width="146" height="78" rx="5" fill="#0d0d2a"/>
           <rect x="82" y="101" width="146" height="14" rx="5" fill="#16163a"/>
-          <circle cx="92" cy="108" r="2.8" fill="#e94560" opacity=".75"/><circle cx="101" cy="108" r="2.8" fill="#f5a623" opacity=".75"/><circle cx="110" cy="108" r="2.8" fill="#4ade80" opacity=".75"/>
+          <circle cx="92" cy="108" r="2.8" fill="#e94560" opacity=".75"/>
+          <circle cx="101" cy="108" r="2.8" fill="#f5a623" opacity=".75"/>
+          <circle cx="110" cy="108" r="2.8" fill="#4ade80" opacity=".75"/>
           <text x="88" y="128" font-size="7.5" fill="#a78bfa" font-family="monospace">import React from 'react'</text>
           <text x="88" y="139" font-size="7.5" fill="#4ade80" font-family="monospace">const App = () =&gt; {'{'}</text>
           <text x="94" y="150" font-size="7.5" fill="#60a5fa" font-family="monospace">  return &lt;Dashboard /&gt;</text>
           <circle cx="155" cy="180" r="24" fill="#f9c784"/>
           <path d="M131 173 Q136 152 155 149 Q174 152 179 173" fill="#2a1a0a"/>
-          <circle cx="147" cy="178" r="3.2" fill="#fff"/><circle cx="163" cy="178" r="3.2" fill="#fff"/>
-          <circle cx="148" cy="179" r="1.9" fill="#3a2a1a"/><circle cx="164" cy="179" r="1.9" fill="#3a2a1a"/>
+          <circle cx="147" cy="178" r="3.2" fill="#fff"/>
+          <circle cx="163" cy="178" r="3.2" fill="#fff"/>
+          <circle cx="148" cy="179" r="1.9" fill="#3a2a1a"/>
+          <circle cx="164" cy="179" r="1.9" fill="#3a2a1a"/>
           <path d="M148 188 Q155 193 162 188" stroke="#3a2a1a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
           <ellipse cx="155" cy="225" rx="36" ry="20" fill="#5a4fcf"/>
         </svg>
@@ -712,17 +709,17 @@ body.dark .feature-card h3{color:#e8e6f0}
     </div>
     <div class="features-grid">
       <a href="https://skillrize-nine.vercel.app" target="_blank" class="feature-card clickable reveal">
-        <div class="feature-icon courses">🎬</div>
+        <div class="feature-icon courses">&#127916;</div>
         <h3>Courses &amp; Login</h3>
         <p>Secure student and admin accounts with personalized dashboards. Assigned courses, tracked progress, and seamless video streaming from anywhere.</p>
       </a>
       <div class="feature-card reveal">
-        <div class="feature-icon tests">📝</div>
+        <div class="feature-icon tests">&#128221;</div>
         <h3>Tests &amp; Quizzes</h3>
         <p>Auto-graded assessments after every module. Instant feedback and score history to measure real improvement over time.</p>
       </div>
       <div class="feature-card reveal">
-        <div class="feature-icon notes">📄</div>
+        <div class="feature-icon notes">&#128196;</div>
         <h3>PDFs &amp; Notes</h3>
         <p>Downloadable study materials, lecture notes, and reference PDFs curated by instructors — always available offline.</p>
       </div>
@@ -745,8 +742,8 @@ body.dark .feature-card h3{color:#e8e6f0}
         <button class="announce-tab" onclick="switchAnnTab(2,this)">COURSES</button>
       </div>
       <div class="announce-header">
-        <h3 id="ann-heading">📋 LATEST ANNOUNCEMENTS</h3>
-        <button class="announce-dl-btn" title="Download" onclick="alert('Downloading announcements…')">⬇</button>
+        <h3 id="ann-heading">&#128203; LATEST ANNOUNCEMENTS</h3>
+        <button class="announce-dl-btn" title="Download" onclick="alert('Downloading announcements\u2026')">&#11015;</button>
       </div>
       <div class="announce-cards-viewport" id="ann-viewport"></div>
       <div class="announce-progress-dots" id="ann-dots"></div>
@@ -764,7 +761,7 @@ body.dark .feature-card h3{color:#e8e6f0}
     </div>
     <div class="courses-grid">
       <div class="course-card reveal">
-        <div class="course-thumb thumb-1">🐍</div>
+        <div class="course-thumb thumb-1">&#127757;</div>
         <div class="course-body">
           <div class="course-tag">Programming</div>
           <h4>Python for Data Science</h4>
@@ -773,7 +770,7 @@ body.dark .feature-card h3{color:#e8e6f0}
         </div>
       </div>
       <div class="course-card reveal">
-        <div class="course-thumb thumb-2">⚛️</div>
+        <div class="course-thumb thumb-2">&#9883;&#65039;</div>
         <div class="course-body">
           <div class="course-tag">Web Dev</div>
           <h4>React &amp; Firebase Full Stack</h4>
@@ -782,7 +779,7 @@ body.dark .feature-card h3{color:#e8e6f0}
         </div>
       </div>
       <div class="course-card reveal">
-        <div class="course-thumb thumb-3">📊</div>
+        <div class="course-thumb thumb-3">&#128202;</div>
         <div class="course-body">
           <div class="course-tag">Business</div>
           <h4>Digital Marketing Mastery</h4>
@@ -791,7 +788,7 @@ body.dark .feature-card h3{color:#e8e6f0}
         </div>
       </div>
       <div class="course-card reveal">
-        <div class="course-thumb thumb-4">🎨</div>
+        <div class="course-thumb thumb-4">&#127912;</div>
         <div class="course-body">
           <div class="course-tag">Design</div>
           <h4>UI/UX Design Fundamentals</h4>
@@ -843,9 +840,9 @@ body.dark .feature-card h3{color:#e8e6f0}
         <h2 class="section-title">Contact Us</h2>
         <p style="color:var(--muted);margin-bottom:2rem;font-weight:400;">Have a question about a course or need help? We respond within 24 hours.</p>
         <div class="contact-info-items">
-          <div class="ci-item"><div class="ci-icon">📧</div><div><h5>Email</h5><p>saipatnala248@gmail.com</p></div></div>
-          <div class="ci-item"><div class="ci-icon">📍</div><div><h5>Location</h5><p>Visakhapatnam, Andhra Pradesh, India</p></div></div>
-          <div class="ci-item"><div class="ci-icon">📱</div><div><h5>WhatsApp</h5><p>+91 89190 09613</p></div></div>
+          <div class="ci-item"><div class="ci-icon">&#128231;</div><div><h5>Email</h5><p>saipatnala248@gmail.com</p></div></div>
+          <div class="ci-item"><div class="ci-icon">&#128205;</div><div><h5>Location</h5><p>Visakhapatnam, Andhra Pradesh, India</p></div></div>
+          <div class="ci-item"><div class="ci-icon">&#128241;</div><div><h5>WhatsApp</h5><p>+91 89190 09613</p></div></div>
         </div>
       </div>
       <div class="reveal">
@@ -853,9 +850,9 @@ body.dark .feature-card h3{color:#e8e6f0}
           <input type="text" id="cf-name" placeholder="Your name"/>
           <input type="email" id="cf-email" placeholder="Your email"/>
           <input type="text" id="cf-subject" placeholder="Subject"/>
-          <textarea id="cf-message" placeholder="Your message…"></textarea>
-          <div class="success-msg" id="success-msg">✅ Opening your email client. Thank you!</div>
-          <button class="btn-primary" onclick="sendEnquiry()">Send Message →</button>
+          <textarea id="cf-message" placeholder="Your message&#8230;"></textarea>
+          <div class="success-msg" id="success-msg">&#9989; Opening your email client. Thank you!</div>
+          <button class="btn-primary" onclick="sendEnquiry()">Send Message &#8594;</button>
         </div>
       </div>
     </div>
@@ -873,7 +870,7 @@ body.dark .feature-card h3{color:#e8e6f0}
     <a href="#about">About</a>
     <a href="#contact">Contact</a>
   </div>
-  <div class="footer-copy">© 2026 SkillRize. All rights reserved. Built for learners, by learners.</div>
+  <div class="footer-copy">&#169; 2026 SkillRize. All rights reserved. Built for learners, by learners.</div>
 </footer>
 
 <!-- ══════════════════ SCRIPTS ════════════════════════════════ -->
@@ -891,30 +888,12 @@ function closeMenu(){
   document.getElementById('mobileMenu').classList.remove('open');
   document.body.style.overflow = '';
 }
-// Close on outside click
 document.addEventListener('click', e => {
-  const nav = document.querySelector('nav');
+  const nav  = document.querySelector('nav');
   const menu = document.getElementById('mobileMenu');
   if (menu.classList.contains('open') && !nav.contains(e.target) && !menu.contains(e.target)){
     closeMenu();
   }
-});
-
-/* ─── LOGO UPLOAD ─── */
-const logoUpload = document.getElementById('logoUpload');
-const logoImg    = document.getElementById('logoImg');
-const logoPlaceholder = document.getElementById('logoPlaceholder');
-const savedLogo = localStorage.getItem('sr-logo');
-if (savedLogo){ logoImg.src=savedLogo; logoImg.style.display='block'; logoPlaceholder.style.display='none'; }
-logoUpload.addEventListener('change', e => {
-  const file = e.target.files[0]; if(!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    const d = ev.target.result;
-    logoImg.src=d; logoImg.style.display='block'; logoPlaceholder.style.display='none';
-    try{ localStorage.setItem('sr-logo',d); }catch(e){}
-  };
-  reader.readAsDataURL(file);
 });
 
 /* ─── HERO SLIDESHOW ─── */
@@ -927,29 +906,28 @@ const TOTAL  = slides.length;
 
 function goSlide(n){
   const progs = document.querySelectorAll('.slide-prog-fill');
-  // reset current
   slides[current].classList.remove('active');
   dots[current].classList.remove('active');
-  progs[current].style.transition='none'; progs[current].style.width='0%';
-  // set new
+  progs[current].style.transition = 'none';
+  progs[current].style.width = '0%';
   current = ((n % TOTAL) + TOTAL) % TOTAL;
   slides[current].classList.add('active');
   dots[current].classList.add('active');
-  // animate bar
   requestAnimationFrame(() => {
     progs[current].style.transition = `width ${SDUR}ms linear`;
     progs[current].style.width = '100%';
   });
   clearInterval(heroTimer);
-  heroTimer = setInterval(() => goSlide(current+1), SDUR);
+  heroTimer = setInterval(() => goSlide(current + 1), SDUR);
 }
 
 goSlide(0);
 
-// Pause on hover
 const heroEl = document.querySelector('.hero');
 heroEl.addEventListener('mouseenter', () => clearInterval(heroTimer));
-heroEl.addEventListener('mouseleave', () => { heroTimer = setInterval(() => goSlide(current+1), SDUR); });
+heroEl.addEventListener('mouseleave', () => {
+  heroTimer = setInterval(() => goSlide(current + 1), SDUR);
+});
 
 /* ─── DARK MODE ─── */
 function toggleTheme(){
@@ -960,7 +938,7 @@ if (localStorage.getItem('sr-theme') === 'dark') document.body.classList.add('da
 
 /* ─── SCROLL REVEAL ─── */
 const revealObs = new IntersectionObserver(
-  entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }),
+  entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
   { threshold: 0.12 }
 );
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
@@ -971,24 +949,26 @@ function animateCounter(el){
   const suffix   = el.dataset.suffix || '';
   const duration = 1800, steps = 60;
   const inc      = target / steps;
-  let cur=0, step=0;
-  const t = setInterval(()=>{
-    step++; cur = Math.min(Math.round(inc*step), target);
-    el.textContent = (target>=1000 ? cur.toLocaleString() : cur) + suffix;
-    el.classList.add('pop'); setTimeout(()=>el.classList.remove('pop'),200);
-    if(step>=steps) clearInterval(t);
-  }, duration/steps);
+  let cur = 0, step = 0;
+  const t = setInterval(() => {
+    step++;
+    cur = Math.min(Math.round(inc * step), target);
+    el.textContent = (target >= 1000 ? cur.toLocaleString() : cur) + suffix;
+    el.classList.add('pop');
+    setTimeout(() => el.classList.remove('pop'), 200);
+    if (step >= steps) clearInterval(t);
+  }, duration / steps);
 }
-const statsObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
+const statsObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting){
       document.querySelectorAll('.stat-box .num[data-target]').forEach(animateCounter);
       statsObs.disconnect();
     }
   });
-},{threshold:.3});
+}, { threshold: .3 });
 const aboutSec = document.querySelector('.about-section');
-if(aboutSec) statsObs.observe(aboutSec);
+if (aboutSec) statsObs.observe(aboutSec);
 
 /* ─── CONTACT FORM ─── */
 function sendEnquiry(){
@@ -996,75 +976,90 @@ function sendEnquiry(){
   const email   = document.getElementById('cf-email').value.trim();
   const subject = document.getElementById('cf-subject').value.trim();
   const message = document.getElementById('cf-message').value.trim();
-  if(!name||!email||!message){ alert('Please fill in your name, email, and message.'); return; }
+  if (!name || !email || !message){
+    alert('Please fill in your name, email, and message.');
+    return;
+  }
   const body = `Name: ${name}%0AEmail: ${email}%0A%0A${message}`;
-  const sub  = subject ? encodeURIComponent(subject) : encodeURIComponent('Enquiry from SkillRize Website');
+  const sub  = subject
+    ? encodeURIComponent(subject)
+    : encodeURIComponent('Enquiry from SkillRize Website');
   window.location.href = `mailto:saipatnala248@gmail.com?subject=${sub}&body=${body}`;
   document.getElementById('success-msg').classList.add('show');
-  ['cf-name','cf-email','cf-subject','cf-message'].forEach(id => document.getElementById(id).value='');
+  ['cf-name','cf-email','cf-subject','cf-message'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
 }
 
 /* ─── ANNOUNCEMENTS SLIDESHOW ─── */
 const annData = [
   [
-    {done:true,  title:'New Web Development Batch Starting June',  score:'10/10', tag:'New Batch', date:'May 19, 2026'},
-    {done:false, title:'Skill Keyword Injection — Enroll Today',    score:'0/5',   tag:'Active',    date:'May 17, 2026'},
-    {done:false, title:'Platform Update: PDF Downloads Now Live',   score:'0/15',  tag:'Update',    date:'May 10, 2026'},
+    { done: true,  title: 'New Web Development Batch Starting June', score: '10/10', tag: 'New Batch', date: 'May 19, 2026' },
+    { done: false, title: 'Skill Keyword Injection \u2014 Enroll Today',   score: '0/5',   tag: 'Active',    date: 'May 17, 2026' },
+    { done: false, title: 'Platform Update: PDF Downloads Now Live',  score: '0/15',  tag: 'Update',    date: 'May 10, 2026' },
   ],
   [
-    {done:false, title:'Annual Skill Summit 2026 — Register Now',  score:'0/10', tag:'Event',    date:'May 15, 2026'},
-    {done:false, title:'Live Webinar: AI in Education — May 28',   score:'0/8',  tag:'Upcoming', date:'May 12, 2026'},
-    {done:true,  title:'Graduation Ceremony 2026 — Completed',     score:'8/8',  tag:'Done',     date:'May 5, 2026'},
+    { done: false, title: 'Annual Skill Summit 2026 \u2014 Register Now', score: '0/10', tag: 'Event',    date: 'May 15, 2026' },
+    { done: false, title: 'Live Webinar: AI in Education \u2014 May 28',  score: '0/8',  tag: 'Upcoming', date: 'May 12, 2026' },
+    { done: true,  title: 'Graduation Ceremony 2026 \u2014 Completed',    score: '8/8',  tag: 'Done',     date: 'May 5, 2026'  },
   ],
   [
-    {done:false, title:'React & Firebase Full Stack — Now Open',   score:'0/36', tag:'Web Dev', date:'May 19, 2026'},
-    {done:false, title:'Python for Data Science Batch 4',          score:'0/24', tag:'Python',  date:'May 14, 2026'},
-    {done:true,  title:'UI/UX Design Fundamentals — Closed',       score:'22/22',tag:'Design',  date:'May 1, 2026'},
+    { done: false, title: 'React & Firebase Full Stack \u2014 Now Open',  score: '0/36', tag: 'Web Dev', date: 'May 19, 2026' },
+    { done: false, title: 'Python for Data Science Batch 4',             score: '0/24', tag: 'Python',  date: 'May 14, 2026' },
+    { done: true,  title: 'UI/UX Design Fundamentals \u2014 Closed',      score: '22/22',tag: 'Design',  date: 'May 1, 2026'  },
   ],
 ];
-const annHeadings = ['📋 LATEST ANNOUNCEMENTS','🗓 UPCOMING EVENTS','📚 NEW COURSES'];
+const annHeadings = [
+  '\ud83d\udccb LATEST ANNOUNCEMENTS',
+  '\ud83d\uddd3 UPCOMING EVENTS',
+  '\ud83d\udcda NEW COURSES'
+];
 let annTab = 0;
 
 function renderAnnCards(idx){
-  const vp   = document.getElementById('ann-viewport');
-  const dots = document.getElementById('ann-dots');
+  const vp    = document.getElementById('ann-viewport');
+  const dotsEl = document.getElementById('ann-dots');
   const items = annData[idx];
   document.getElementById('ann-heading').textContent = annHeadings[idx];
-  vp.innerHTML = items.map((item,i)=>`
-    <div class="announce-card-item ${item.done?'done':''}" style="animation-delay:${i*.08}s"
-         onclick="alert('📌 ${item.title}\\n\\n🗓 ${item.date}\\n🏷 ${item.tag}')">
+  vp.innerHTML = items.map((item, i) => `
+    <div class="announce-card-item ${item.done ? 'done' : ''}"
+         style="animation-delay:${i * .08}s"
+         onclick="alert('\ud83d\udccc ${item.title}\\n\\n\ud83d\uddd3 ${item.date}\\n\ud83c\udff7 ${item.tag}')">
       <div class="ac-left">
-        <div class="ac-num ${item.done?'done-num':'pending-num'}">${i+1}</div>
+        <div class="ac-num ${item.done ? 'done-num' : 'pending-num'}">${i + 1}</div>
         <div>
-          <div class="ac-title ${item.done?'done-title':''}">${item.title}</div>
-          <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:2px;">${item.date} &nbsp;·&nbsp; <span style="color:${item.done?'#4ade80':'#f5a623'}">${item.tag}</span></div>
+          <div class="ac-title ${item.done ? 'done-title' : ''}">${item.title}</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:2px;">
+            ${item.date} &nbsp;&middot;&nbsp;
+            <span style="color:${item.done ? '#4ade80' : '#f5a623'}">${item.tag}</span>
+          </div>
         </div>
       </div>
       <div class="ac-right">
         <span class="ac-score">${item.score}</span>
-        <span class="ac-chevron">›</span>
+        <span class="ac-chevron">&#8250;</span>
       </div>
     </div>
   `).join('');
-  dots.innerHTML = annData.map((_,i)=>
-    `<button class="ap-dot ${i===idx?'active':''}" onclick="switchAnnTab(${i},null)"></button>`
+  dotsEl.innerHTML = annData.map((_, i) =>
+    `<button class="ap-dot ${i === idx ? 'active' : ''}" onclick="switchAnnTab(${i}, null)"></button>`
   ).join('');
 }
 
 function switchAnnTab(idx, btn){
   const vp = document.getElementById('ann-viewport');
   vp.classList.add('slide-out');
-  setTimeout(()=>{
+  setTimeout(() => {
     vp.classList.remove('slide-out');
     annTab = idx;
     renderAnnCards(idx);
     vp.classList.add('slide-in');
-    setTimeout(()=>vp.classList.remove('slide-in'), 400);
+    setTimeout(() => vp.classList.remove('slide-in'), 400);
   }, 280);
-  document.querySelectorAll('.announce-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  document.querySelectorAll('.announce-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
 }
 
-setInterval(()=>switchAnnTab((annTab+1)%3,null), 5000);
+setInterval(() => switchAnnTab((annTab + 1) % 3, null), 5000);
 renderAnnCards(0);
 </script>
 </body>
